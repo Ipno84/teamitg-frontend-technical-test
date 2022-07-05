@@ -1,21 +1,25 @@
-import { useState, useEffect } from 'react';
-import getData from '../../api';
+import { useEffect, useCallback } from "react";
+import { useDispatch, useSelector } from "~/state/hooks";
+import { selectVehiclesListWithPrice } from "~/state/reducers/vehicles/selectors/select-vehicles-list-with-price";
+import { isLoadingList } from "~/state/reducers/vehicles/selectors/is-loading-list";
+import { selectError } from "~/state/reducers/vehicles/selectors/select-error";
+import { VehiclesActions } from "~/state/reducers/vehicles";
 
 export default function useData() {
-  const [vehicles, setVehicles] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+    const dispatch = useDispatch();
 
-  useEffect(() => {
-    getData()
-      .then((response) => setVehicles(response))
-      .catch((err) => setError(err))
-      .finally(() => setLoading(false));
-  }, []);
+    const vehicles = useSelector(selectVehiclesListWithPrice);
+    const loading = useSelector(isLoadingList);
+    const error = useSelector(selectError);
 
-  return [
-    loading,
-    error,
-    vehicles,
-  ];
+    const getVehicles = useCallback(
+        () => dispatch(VehiclesActions.getVehicles()),
+        [dispatch]
+    );
+
+    useEffect(() => {
+        getVehicles();
+    }, [getVehicles]);
+
+    return [loading, error, vehicles];
 }

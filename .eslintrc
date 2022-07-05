@@ -1,6 +1,6 @@
 {
-    "extends": "airbnb",
-    "parser": "babel-eslint",
+    "extends": ["airbnb", "plugin:@typescript-eslint/recommended"],
+    "parser": "@typescript-eslint/parser",
     "parserOptions": {
         "ecmaVersion": 6,
         "ecmaFeatures": {
@@ -15,28 +15,46 @@
         "jest": true,
         "jquery": true
     },
+    "plugins": ["@typescript-eslint"],
     "rules": {
+        "quotes": [2, "double", { "avoidEscape": true }],
+        "indent": ["error", 4],
+        "import/extensions": "off",
+        "space-infix-ops": "off",
+        "no-bitwise": "off",
         "import/prefer-default-export": "off",
         "no-underscore-dangle": "off",
         "space-before-function-paren": "off",
         "react/forbid-prop-types": "off",
         "react/prop-types": "off",
         "react/prefer-stateless-function": "off",
-        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+        "react/jsx-indent": [2, 4, { "indentLogicalExpressions": true }],
+        "react/jsx-filename-extension": [
+            1,
+            { "extensions": [".js", ".jsx", ".tsx"] }
+        ],
         "linebreak-style": "off",
         "global-require": "off",
         "semi": "warn",
         "arrow-body-style": "off",
         "comma-dangle": "off",
-        "max-len":"off",
+        "max-len": "off",
         "react/jsx-closing-tag-location": "off",
         "react/no-multi-comp": "off",
-        "jsx-a11y/label-has-for": [ 2, {
-            "components": [ "Label" ],
-            "required": {
-                "some": [ "nesting", "id" ]
-            },
-            "allowChildren": false
-        }]
+        "jsx-a11y/label-has-for": [
+            2,
+            {
+                "components": ["Label"],
+                "required": {
+                    "some": ["nesting", "id"]
+                },
+                "allowChildren": false
+            }
+        ]
+    },
+    "settings": {
+        "import/resolver": {
+            "typescript": {}
+        }
     }
 }

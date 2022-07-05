@@ -5,5 +5,11 @@
  * @return {Promise<Object>}
  */
 export async function request(apiUrl) {
-  return apiUrl;
+    try {
+        const response = await fetch(apiUrl);
+        const result = await response.json();
+        return result;
+    } catch (error) {
+        throw error;
+    }
 }
